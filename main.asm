@@ -31,9 +31,8 @@ StopWDT     mov.w   #WDTPW|WDTHOLD,&WDTCTL  ; Stop watchdog timer
                                             ; Main loop here
 ;-------------------------------------------------------------------------------
 
-            ;
-            ; load registers with necessary info for decryptMessage here
-            ;
+			mov #messg, mTrk	;point at start of message
+			mov #0x200, dTrk	;point decryted at proper place in RAM
 
             call    #decryptMessage
 
@@ -58,7 +57,10 @@ forever:    jmp     forever
 ;-------------------------------------------------------------------------------
 
 decryptMessage:
-
+			mov.b	@mTrk+, work	;stage byte for decryption
+			call	#decryptCharacter
+			mov.b	work, 0(dTrk)
+			inc		dTrk
             ret
 
 ;-------------------------------------------------------------------------------
@@ -73,7 +75,7 @@ decryptMessage:
 ;-------------------------------------------------------------------------------
 
 decryptCharacter:
-
+			xor.b	key, work
             ret
 
 ;-------------------------------------------------------------------------------
