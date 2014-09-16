@@ -1,6 +1,6 @@
 ;-------------------------------------------------------------------------------
 ; MSP430 Assembler Code Template for use with TI Code Composer Studio
-; Lab02
+;
 ;
 ;-------------------------------------------------------------------------------
             .cdecls C,LIST,"msp430.h"       ; Include device header file
@@ -12,7 +12,6 @@
             .retainrefs                     ; Additionally retain any sections
                                             ; that have references to current
                                             ; section
-
 ; Store Key Here
 key:	.byte	0xac
 
@@ -31,8 +30,11 @@ StopWDT     mov.w   #WDTPW|WDTHOLD,&WDTCTL  ; Stop watchdog timer
 ;-------------------------------------------------------------------------------
                                             ; Main loop here
 ;-------------------------------------------------------------------------------
-		mov		#mssg, mTrk	;point the register at the start of the message
-		mov		#0x200, dTrk	;starting location for decrypted message
+
+            ;
+            ; load registers with necessary info for decryptMessage here
+            ;
+
             call    #decryptMessage
 
 forever:    jmp     forever
@@ -84,4 +86,4 @@ decryptCharacter:
 ;           Interrupt Vectors
 ;-------------------------------------------------------------------------------
             .sect   ".reset"                ; MSP430 RESET Vector
-            .short  RESET</CODE></PRE></DIV></BODY></HTML>
+            .short  RESET
