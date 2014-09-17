@@ -46,7 +46,7 @@ StopWDT     mov.w   #WDTPW|WDTHOLD,&WDTCTL  ; Stop watchdog timer
 
 			mov 	#messg, mTrk	;point at start of message
 			mov	 	#0x200, dTrk	;point decryted at proper place in RAM
-			mov.b	#key, kTrk		;point at start of key
+			mov	#key, kTrk		;point at start of key
 
             call    #decryptMessage
 
@@ -71,18 +71,25 @@ forever:    jmp     forever
 ;-------------------------------------------------------------------------------
 
 decryptMessage:
+			push	r9
+
 loopKey		mov		#key, kTrk
-nextByte	mov.b	@mTrk+, work	;stage byte for decryption
+			clr		r9
+
+nextByte	inc		r9
+			mov.b	@mTrk+, work	;stage byte for decryption
 			call	#decryptCharacter ;call second subroutine
 			mov.b	work, 0(dTrk)	;store decrypted
 			inc		dTrk
 			cmp.b	#0x8F, mTrk		;check for end character
 			jz		return
 			inc		kTrk
-			cmp		keyL, kTrk		;decide if key was fully used
+			cmp.b 	r9, keyL		;decide if key was fully used
 			jz		loopKey
-			jmp		nextByte
-return		ret
+			jmp		nextByte	;if not, go again
+
+return		pop		r9
+			ret
 
 ;-------------------------------------------------------------------------------
 ;Subroutine Name: decryptCharacter
