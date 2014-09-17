@@ -13,8 +13,8 @@
                                             ; that have references to current
                                             ; section
 ; Store Key Here
-key:	.byte	0xac
-
+key:	.byte	0xac, 0xdf, 0x23
+keyL:	.byte	0x3		;length of the key in bytes
 ;Store Message to be decoded here
 messg:
 		.byte 0xf8,0xb7,0x46,0x8c,0xb2,0x46,0xdf,0xac,0x42,0xcb,0xba,0x03,0xc7,0xba,0x5a,0x8c,0xb3,0x46,0xc2,0xb8
@@ -34,6 +34,7 @@ messg:
 mTrk:		.equ		r5		;register for tracking location on encrypted message
 work:		.equ		r6		;workhorse register - this is where things will be decrypted
 dTrk:		.equ		r7		;register for tracking location on the resulting message
+kTrk:		.equ		r8		;register for tracking key increment
 
 ;-------------------------------------------------------------------------------
 RESET       mov.w   #__STACK_END,SP         ; Initialize stackpointer
@@ -43,8 +44,9 @@ StopWDT     mov.w   #WDTPW|WDTHOLD,&WDTCTL  ; Stop watchdog timer
                                             ; Main loop here
 ;-------------------------------------------------------------------------------
 
-			mov #messg, mTrk	;point at start of message
-			mov #0x200, dTrk	;point decryted at proper place in RAM
+			mov 	#messg, mTrk	;point at start of message
+			mov	 	#0x200, dTrk	;point decryted at proper place in RAM
+			mov.b	#key, kTrk		;point at start of key
 
             call    #decryptMessage
 
@@ -69,13 +71,18 @@ forever:    jmp     forever
 ;-------------------------------------------------------------------------------
 
 decryptMessage:
+loopKey		mov		#key, kTrk
 nextByte	mov.b	@mTrk+, work	;stage byte for decryption
-			call	#decryptCharacter
-			mov.b	work, 0(dTrk)
+			call	#decryptCharacter ;call second subroutine
+			mov.b	work, 0(dTrk)	;store decrypted
 			inc		dTrk
-			cmp.b	#0x8F, mTrk
-			jnz		nextByte
-            ret
+			cmp.b	#0x8F, mTrk		;check for end character
+			jz		return
+			inc		kTrk
+			cmp		keyL, kTrk		;decide if key was fully used
+			jz		loopKey
+			jmp		nextByte
+return		ret
 
 ;-------------------------------------------------------------------------------
 ;Subroutine Name: decryptCharacter
@@ -91,7 +98,7 @@ nextByte	mov.b	@mTrk+, work	;stage byte for decryption
 decryptCharacter:
 			push	mTrk
 			push	dTrk
-			xor.b	key, work
+			xor.b	@kTrk, work
 			pop		dTrk
 			pop		mTrk
             ret
