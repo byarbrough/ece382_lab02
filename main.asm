@@ -1,6 +1,16 @@
 ;-------------------------------------------------------------------------------
 ; MSP430 Assembler Code Template for use with TI Code Composer Studio
 ;
+; Name: C2C Brian Yarbrough
+; Section: ECE 382, T5
+; MCU: MSP430G2553
+; Lab 02: Cryptogrophy
+; Description: This program decrypts a message given a known key. If the key is unknown, it must be found externally and then inputted.
+;		The message must be in bytes, but the key can be any length as long as the lenght of the key is updated in ROM before running
+;		Additionally, this program makes use of subroutines, this helps break the problem into smaller parts and keep things clean.
+;			Enter message under "messg:" , the key under "key:" , and the length of the key in bytes under "keyL:"
+;
+; Date Due: 18 Sep 14
 ;
 ;-------------------------------------------------------------------------------
             .cdecls C,LIST,"msp430.h"       ; Include device header file
@@ -13,7 +23,7 @@
                                             ; that have references to current
                                             ; section
 ; Store Key Here
-key:	.byte	0x73, 0xBE ;0xac, 0xdf, 0x23
+key:	.byte	0x73, 0xBE ;0xac; , 0xdf, 0x23
 keyL:	.byte	0x2		;length of the key in bytes
 ;Store Message to be decoded here
 messg:
@@ -40,7 +50,6 @@ mTrk:		.equ		r5		;register for tracking location on encrypted message
 work:		.equ		r6		;workhorse register - this is where things will be decrypted
 dTrk:		.equ		r7		;register for tracking location on the resulting message
 kTrk:		.equ		r8		;register for tracking key increment
-;key:		.equ		r10
 ;-------------------------------------------------------------------------------
 RESET       mov.w   #__STACK_END,SP         ; Initialize stackpointer
 StopWDT     mov.w   #WDTPW|WDTHOLD,&WDTCTL  ; Stop watchdog timer
@@ -54,12 +63,7 @@ StopWDT     mov.w   #WDTPW|WDTHOLD,&WDTCTL  ; Stop watchdog timer
 			mov	 	#0x200, dTrk	;point decryted at proper place in RAM
 			mov		#key, kTrk		;point at start of key
 
-;nextLetter	cmp.b	#0x7A, key
- ;			jz		forever
             call    #decryptMessage
- ;          inc		key
- ;          mov		#0x200, dTrk
- ;			jmp		nextLetter
 
 forever:    jmp     forever
 
