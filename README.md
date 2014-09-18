@@ -11,3 +11,6 @@ f u	n	c	t	i	o	n	a	l i	t	y	#
 B Functionality Answer
 T	h	e	.	m	e	s	s	a g	e	.	k	e	y	.	l	e n	g	t	h	.	i	s	.	1 6	.	b	i	t	s	.	.	.I	t	.	o	n	l	y	.	c
 o	n	t	a	i	n	s	.	l e	t t	e	r	s	,	.	p e	r	i	o	d	s	,	.	a n	d	.	s	p	a	c	e	s#
+
+A Functionality Answer
+F	a	s	t	.	.	N	e	a  t .	.	A	v	e	r	a	g e	.	.	F	r	i	e	n	d l	y	.	.	G	o	o	d	. .	G	o	o	d
