@@ -31,9 +31,9 @@ This was, obviously, the most difficult part of the lab. At first I misinterpret
 
 First, I went to Wiki and found a chart of which letters are the most common in the English language - as it turns out, "e". 
 
-	_Frequency of Letters in the English Language (Wikipedia)_
+	_Frequency of Letters in the English Language, Wikipedia_
 	
-![alt text](http://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/English_letter_frequency_%28alphabetic%29.svg/600px-English_letter_frequency_%28alphabetic%29.svg.png " "Frequency of Letters in the English Language (Wikipedia)")
+![alt text](http://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/English_letter_frequency_%28alphabetic%29.svg/600px-English_letter_frequency_%28alphabetic%29.svg.png  "Frequency of Letters in the English Language ")
 	
 I then counted which values were the most common in the encrypted message: 0x90, 0x16, and 0x17 all appeared four times. From this, I concluded that one of those three values likely translates to "e". By XORing the encrypted byte with the ASCII code for "e", I could determine which key would result in an "e". I then ran this through the program. If it output a bunch of garblygook, then I knew it was likely not the key. Furthermore, I knew that I was looking only for ASCII letters, periods, and spaces, so if I saw any of those, I knew that I had the incorrect key.
 
