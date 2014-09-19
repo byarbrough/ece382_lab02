@@ -18,9 +18,11 @@ I worked backwards in the actual programming. First, I made sure that I could se
 ###B Functionality
 Having the required functionality, it was not a major step to go to B functionality. The trickiest part was deciding just how I wanted to do things. It would have been great to have a .length() function to just determine the length of the key, but this isn't that sissy high level language stuff. I eventually ended up making the user have to input the length of the key, in bytes, in ROM (keyL). This hurt my pride a bit, but had to be done.
 Having the key length always accessible allowed me to put a loop within the first subroutine. For a key length of two bytes, it would solve a character, advance a pointer to the second byte in the key, and then call decryptCharacter again. This isn't very pretty looking code, but is robust enough to handle a key length that is just as long as the message.
+
 ####Side Note: Debugging
 Thus far I had not had to do any significant debugging. The largest problems were caused by simple errors on my part. The beloved register indexed got me once or twice, messing up where things were stored at. The biggest error that I had to debug was when I modified dTrk. In my infinite wisdom, I had the original command for initialization as mov.b #0x200, dTrk . This built just fine, but I would not store things in the correct place - I couldn't even find where things were being modified at. Well, of course 0x200 is a word, not a byte, so mov.b just stores 0x00. This obviously doesn't work.
 Once I fixed that error and finished up my loops, I got:
+
 _B Functionality Answer_
 T	h	e	.	m	e	s	s	a g	e	.	k	e	y	.	l	e n	g	t	h	.	i	s	.	1 6	.	b	i	t	s	.	.	.I	t	.	o	n	l	y	.	c o	n	t	a	i	n	s	.	l e	t t	e	r	s	,	.	p e	r	i	o	d	s	,	.	a n	d	.	s	p	a	c	e	s#
 
@@ -28,6 +30,7 @@ T	h	e	.	m	e	s	s	a g	e	.	k	e	y	.	l	e n	g	t	h	.	i	s	.	1 6	.	b	i	t	s	.	.	.I	t	.	o	n
 This was, obviously, the most difficult part of the lab. At first I misinterpreted the hint from solving message B; I thought that it meant the 16 bit (two byte) key had a letter, a pace, and a period. Clearly, this was not the case, so caused some confusion. I consulted with C2C Sabin Park and realized which information pertained to the message itself instead of the key. This allowed me to take a different approach to solving the key, and took me a comparatively short amount of time from that point.
 
 First, I went to Wiki and found a chart of which letters are the most common in the English language - as it turns out, "e". 
+
 	_Frequency of Letters in the English Language (Wikipedia)_
 	![alt text](http://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/English_letter_frequency_%28alphabetic%29.svg/600px-English_letter_frequency_%28alphabetic%29.svg.png "Frequency of Letters in the English Language (Wikipedia)")
 	
@@ -35,7 +38,9 @@ I then counted which values were the most common in the encrypted message: 0x90,
 
 Here is an example of an incorrect key combination.
 0x90 xor 0x45 = 0xD5| find the key if 0x90 is 'E'
+
 Put key = 0xD5, 0xD5
+
 _Incorrect Result_ 
 .	.	.	.	.	K	.	.	. .	.	K	.	.	.	.	.	. .	E	.	-	.	.	.	.	. .	.	E	.	,	.	.	.	E .	,	.	.	.	E	Z	.	. .	.	g	.	U	.	.	.	% .	.	.	.	*	.	.	.	. .	.	.	.	.	.	.	.	e 
 
