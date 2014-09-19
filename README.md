@@ -1,10 +1,12 @@
 ece382_lab02
 ============
 
-Lab 02 - Decryption
+Decryption
+____________________
 
 Kaboom! Here is the:
 _Required Functionality Answer_
+
 C	o	n	g	r	a	t	u	l a	t	i	o	n	s	!	.	.Y	o	u	.	d	e	c	r	yp	t	e	d	.	t	h	e	. E	C	E	3	8 2	.	h	i d	d	e	n	.	m	e	s	s  a	g	e	.	a	n	d	.	a c	h	i	e	v	e	d	.	r e	q	u	i	r	e	d	.	f u	n c	t	i	o	n	a	l i	t	y	#
 
 How did I get there? Well, first I started out with a prelab:
@@ -24,6 +26,7 @@ Thus far I had not had to do any significant debugging. The largest problems wer
 Once I fixed that error and finished up my loops, I got:
 
 _B Functionality Answer_
+
 T	h	e	.	m	e	s	s	a g	e	.	k	e	y	.	l	e n	g	t	h	.	i	s	.	1 6	.	b	i	t	s	.	.	.I	t	.	o	n	l	y	.	c o	n	t	a	i	n	s	.	l e	t t	e	r	s	,	.	p e	r	i	o	d	s	,	.	a n	d	.	s	p	a	c	e	s#
 
 ###Cracking the Key - A functionality
@@ -31,7 +34,7 @@ This was, obviously, the most difficult part of the lab. At first I misinterpret
 
 First, I went to Wiki and found a chart of which letters are the most common in the English language - as it turns out, "e". 
 
-	_Frequency of Letters in the English Language, Wikipedia_
+_Frequency of Letters in the English Language (Wikipedia)_
 	
 ![alt text](http://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/English_letter_frequency_%28alphabetic%29.svg/600px-English_letter_frequency_%28alphabetic%29.svg.png  "Frequency of Letters in the English Language ")
 	
@@ -43,6 +46,7 @@ Here is an example of an incorrect key combination.
 Put key = 0xD5, 0xD5
 
 _Incorrect Result_ 
+
 .	.	.	.	.	K	.	.	. .	.	K	.	.	.	.	.	. .	E	.	-	.	.	.	.	. .	.	E	.	,	.	.	.	E .	,	.	.	.	E	Z	.	. .	.	g	.	U	.	.	.	% .	.	.	.	*	.	.	.	. .	.	.	.	.	.	.	.	e 
 
 Clearly, this is not a correct key.
@@ -51,6 +55,7 @@ As it turns out, the value 0x16 corresponds to 'e' and 0x90 corresponds to '.'
 Setting the key to 0x73, 0xBE yields.... *drum-roll*
 
 _A Functionality Answer_
+
 F	a	s	t	.	.	N	e	a  t .	.	A	v	e	r	a	g e	.	.	F	r	i	e	n	d l	y	.	.	G	o	o	d	. .	G	o	o	d
 
 I was pretty excited about this.
