@@ -9,7 +9,8 @@ C	o	n	g	r	a	t	u	l a	t	i	o	n	s	!	.	.Y	o	u	.	d	e	c	r	yp	t	e	d	.	t	h	e	. E	C	E	3	8 
 
 How did I get there? Well, first I started out with a prelab:
 ###Flowchart
-![alt text](
+![alt text](https://raw.githubusercontent.com/byarbrough/ece382_lab02/master/flow2.jpg "Initial Flowchart")
+
 The primary difference between this program and Lab01 is that this program uses subroutines in the form of stack pointers. Subroutines are useful for segmenting code and keeping it clean. They are especially useful when a segment of code is going to be used over and over. The decryptCharacter subroutine is a prime example of when a subroutine should be used. Arguably, the first subroutine doesn't need to be a subroutine as it is only called once, but it is  a good demonstration. Also, if the code was going to be modified to decrypt several messages then the two subroutine setup would certainly be handy. Yes, this could have been done with loops, but not as effectively. Plus, the push and pop functions allow for the preservation of registers which may be destroyed or wasted by counting loops.
 
 I worked backwards in the actual programming. First, I made sure that I could setup registers and decode a single character. In order to do this I had to write coherent skeleton code to be filled in later. This made a smaller problem out of a bigger one (a good coding technique). Once I had a single character decoded, I only had to modify the first subroutine to advance pointers and recall the second subroutine. Much of the code from Lab01 could be reused to do this.
@@ -29,6 +30,7 @@ This was, obviously, the most difficult part of the lab. At first I misinterpret
 First, I went to Wiki and found a chart of which letters are the most common in the English language - as it turns out, "e". 
 	_Frequency of Letters in the English Language (Wikipedia)_
 	![alt text](http://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/English_letter_frequency_%28alphabetic%29.svg/600px-English_letter_frequency_%28alphabetic%29.svg.png "Frequency of Letters in the English Language (Wikipedia)")
+	
 I then counted which values were the most common in the encrypted message: 0x90, 0x16, and 0x17 all appeared four times. From this, I concluded that one of those three values likely translates to "e". By XORing the encrypted byte with the ASCII code for "e", I could determine which key would result in an "e". I then ran this through the program. If it output a bunch of garblygook, then I knew it was likely not the key. Furthermore, I knew that I was looking only for ASCII letters, periods, and spaces, so if I saw any of those, I knew that I had the incorrect key.
 
 Here is an example of an incorrect key combination.
