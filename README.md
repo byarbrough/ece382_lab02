@@ -1,21 +1,22 @@
 ece382_lab02
 ============
 
-Decryption
+Decryption - Practice programming skills by writing subroutines which use both the call-by-value and call-by-reference techniques to pass arguments to your subroutines. This program will decrypte a message given a key.
 ____________________
 
 Kaboom! Here is the:
 _Required Functionality Answer_
 
-C	o	n	g	r	a	t	u	l a	t	i	o	n	s	!	.	.Y	o	u	.	d	e	c	r	yp	t	e	d	.	t	h	e	. E	C	E	3	8 2	.	h	i d	d	e	n	.	m	e	s	s  a	g	e	.	a	n	d	.	a c	h	i	e	v	e	d	.	r e	q	u	i	r	e	d	.	f u	n c	t	i	o	n	a	l i	t	y	#
+C	o	n	g	r	a	t	u	l  a	t	i	o	n	s	!	.	.Y	o	u	.	d	e	c	r	y p	t	e	d	.	t	h	e	. E	C	E	3	8 2	.	h	i  d	d	e	n	.	m	e	s	s  a	g	e	.	a	n	d	.	a  c	h	i	e	v	e	d	.	r  e	q	u	i	r	e	d	.	f  u	n  c	t	i	o	n	a	l i	t	y	#
 
 How did I get there? Well, first I started out with a prelab:
 ###Flowchart
 ![alt text](https://raw.githubusercontent.com/byarbrough/ece382_lab02/master/flow2.jpg "Initial Flowchart")
 
-The primary difference between this program and Lab01 is that this program uses subroutines in the form of stack pointers. Subroutines are useful for segmenting code and keeping it clean. They are especially useful when a segment of code is going to be used over and over. The decryptCharacter subroutine is a prime example of when a subroutine should be used. Arguably, the first subroutine doesn't need to be a subroutine as it is only called once, but it is  a good demonstration. Also, if the code was going to be modified to decrypt several messages then the two subroutine setup would certainly be handy. Yes, this could have been done with loops, but not as effectively. Plus, the push and pop functions allow for the preservation of registers which may be destroyed or wasted by counting loops.
+The primary difference between this program and Lab01 is that this program uses subroutines in the form of stack pointers. Subroutines are useful for segmenting code and keeping it clean. They are especially useful when a segment of code is going to be used over and over. The decryptCharacter subroutine is a prime example of when a subroutine should be used because it performs a specific task when passed parameters and returns a result which the program continues to execute on.. Arguably, the first subroutine doesn't need to be a subroutine as it is only called once, but it is good practice. Also, if the code was going to be modified to decrypt several messages then the two subroutine setup would certainly be handy. Yes, this could have been done with loops, but not as effectively. Plus, the push and pop functions allow for the preservation of registers which may be destroyed or wasted by counting loops.
 
-I worked backwards in the actual programming. First, I made sure that I could setup registers and decode a single character. In order to do this I had to write coherent skeleton code to be filled in later. This made a smaller problem out of a bigger one (a good coding technique). Once I had a single character decoded, I only had to modify the first subroutine to advance pointers and recall the second subroutine. Much of the code from Lab01 could be reused to do this.
+I worked backwards in the actual programming. First, I made sure that I could setup registers and decode a single character. In order to do this I had to write coherent skeleton code to be filled in later. This made a smaller problem out of a bigger one (a good coding technique). The commit labled "decrypt single byte" from the history of _main.asm_ shows this first program.
+Once I had a single character decoded, I only had to modify the first subroutine to advance pointers and recall the second subroutine. Much of the code from Lab01 could be reused to do this.
 
 ###B Functionality
 Having the required functionality, it was not a major step to go to B functionality. The trickiest part was deciding just how I wanted to do things. It would have been great to have a .length() function to just determine the length of the key, but this isn't that sissy high level language stuff. I eventually ended up making the user have to input the length of the key, in bytes, in ROM (keyL). This hurt my pride a bit, but had to be done.
