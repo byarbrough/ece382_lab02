@@ -18,11 +18,14 @@ The primary difference between this program and Lab01 is that this program uses 
 I worked backwards in the actual programming. First, I made sure that I could setup registers and decode a single character. In order to do this I had to write coherent skeleton code to be filled in later. This made a smaller problem out of a bigger one (a good coding technique). The commit labled "decrypt single byte" from the history of _main.asm_ shows this first program.
 Once I had a single character decoded, I only had to modify the first subroutine to advance pointers and recall the second subroutine. Much of the code from Lab01 could be reused to do this.
 
+####Side Note: Hardware
+Because this program was implimented on the TI MSP430, there was a limited amount of RAM, which could not be exceeded. This restricts the number of characters which be decoded before the program fills RAM and crashes after 512 bytes.
+
 ###B Functionality
 Having the required functionality, it was not a major step to go to B functionality. The trickiest part was deciding just how I wanted to do things. It would have been great to have a .length() function to just determine the length of the key, but this isn't that sissy high level language stuff. I eventually ended up making the user have to input the length of the key, in bytes, in ROM (keyL). This hurt my pride a bit, but had to be done.
 Having the key length always accessible allowed me to put a loop within the first subroutine. For a key length of two bytes, it would solve a character, advance a pointer to the second byte in the key, and then call decryptCharacter again. This isn't very pretty looking code, but is robust enough to handle a key length that is just as long as the message.
 
-####Side Note: Debugging
+###Side Note: Debugging
 Thus far I had not had to do any significant debugging. The largest problems were caused by simple errors on my part. The beloved register indexed got me once or twice, messing up where things were stored at. The biggest error that I had to debug was when I modified dTrk. In my infinite wisdom, I had the original command for initialization as mov.b #0x200, dTrk . This built just fine, but I would not store things in the correct place - I couldn't even find where things were being modified at. Well, of course 0x200 is a word, not a byte, so mov.b just stores 0x00. This obviously doesn't work.
 Once I fixed that error and finished up my loops, I got:
 
