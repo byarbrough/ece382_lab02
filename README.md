@@ -65,6 +65,27 @@ I was pretty excited about this.
 
 Unfortunately, it was not all as easy as this. Before I tried 'e' I tried both '.' and space as well as 'E'. Also, I conveniently tried 0x16 after 0x90 every time. This resulted in some extra runs. Also, I incorrectly assumed that because 0x16 and 0x17 were only one bit off that they were adjacent letters - most likely 'h' and 'i' or 'm' and 'n' since they are quite common. That was a dumb waste of time. Once I started focusing on 'e' it all worked out just fine.
 
+###In case there were any doubts
+Just to verify that my program did in fact XOR and decrypt correctly, I set the message to an actual string.
+
+_"Why.don't.you.prove.it?"_
+
+When I ran the program on this, it gave me the following code.
+
+0x24	0xD6	0x0A	0x90	0x17	0xD1	0x1D
+0x99	0x07	0x90	0x0A	0xD1	0x06	0x90
+0x03	0xCC	0x1C	0xC8	0x16	0x90	0x1A
+0xCA	0x4C
+
+
+Of course, when I inserted this code into the message and ran everything again, it produced just what was expected:
+
+W	h	y	.	d	o	n  '  t .	y	o	u	.	p	r	o	v  	e	.	i	t	?
+
+Seeing this, as well as the fact that I got all of the correct answers for functionality above, there is no doubt that the program runs smoothly.
+
+
+
 ###Conclusion
 This lab was a lot of fun. I am one step closer to becoming an assembly ninja, as I now know how to employ subroutines. Also, it was nice to jump back in to some decryption techniques.
 
