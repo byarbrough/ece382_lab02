@@ -1,7 +1,7 @@
 ece382_lab02
 ============
 
-Decryption - Practice programming skills by writing subroutines which use both the call-by-value and call-by-reference techniques to pass arguments to your subroutines. This program will decrypte a message given a key.
+Decryption - Practice programming skills by writing subroutines which use both the call-by-value and call-by-reference techniques to pass arguments to your subroutines. This program will decrypt a message given a key.
 ____________________
 
 Kaboom! Here is the:
@@ -16,11 +16,11 @@ How did I get there? Well, first I started out with a prelab:
 The primary difference between this program and Lab01 is that this program uses subroutines in the form of stack pointers. Subroutines are useful for segmenting code and keeping it clean. They are especially useful when a segment of code is going to be used over and over. The decryptCharacter subroutine is a prime example of when a subroutine should be used because it performs a specific task when passed parameters and returns a result which the program continues to execute on.. Arguably, the first subroutine doesn't need to be a subroutine as it is only called once, but it is good practice. Also, if the code was going to be modified to decrypt several messages then the two subroutine setup would certainly be handy. Yes, this could have been done with loops, but not as effectively. Plus, the push and pop functions allow for the preservation of registers which may be destroyed or wasted by counting loops.
 
 ####From Boxes to Code
-I worked backwards in the actual programming. First, I made sure that I could setup registers and decode a single character. In order to do this I had to write coherent skeleton code to be filled in later. This made a smaller problem out of a bigger one (a good coding technique). The commit labled "decrypt single byte" from the history of _main.asm_ shows this first program.
+I worked backwards in the actual programming. First, I made sure that I could setup registers and decode a single character. In order to do this I had to write coherent skeleton code to be filled in later. This made a smaller problem out of a bigger one (a good coding technique). The commit labeled "decrypt single byte" from the history of _main.asm_ shows this first program.
 Once I had a single character decoded, I only had to modify the first subroutine to advance pointers and recall the second subroutine. Much of the code from Lab01 could be reused to do this.
 
 ####Side Note: Hardware
-Because this program was implimented on the TI MSP430, there was a limited amount of RAM, which could not be exceeded. This restricts the number of characters which be decoded before the program fills RAM and crashes after 512 bytes.
+Because this program was implemented on the TI MSP430, there was a limited amount of RAM, which could not be exceeded. This restricts the number of characters which are decoded before the program fills RAM and crashes after 512 bytes.
 
 ###B Functionality
 Having the required functionality, it was not a major step to go to B functionality. The trickiest part was deciding just how I wanted to do things. It would have been great to have a .length() function to just determine the length of the key, but this isn't that sissy high level language stuff. I eventually ended up making the user have to input the length of the key, in bytes, in ROM (keyL). This hurt my pride a bit, but had to be done.
@@ -63,9 +63,10 @@ F	a	s	t	.	.	N	e	a  t .	.	A	v	e	r	a	g e	.	.	F	r	i	e	n	d l	y	.	.	G	o	o	d	. .	G	o	o
 
 I was pretty excited about this.
 
-Unfortunately, it was not all as easy as this. Before I tried 'e' I tried both '.' and space as well as 'E'. Also, I conveniently tried 0x16 after 0x90 every time. This resulted in some extra runs. Also, I incorrectly assumed that because 0x16 and 0x17 were only one bit off that they were adjacent letters - most likely 'h' and 'i' or 'm' and 'n' since they are quite common. That was a dumb waste of time. Once I started focussing on 'e' it all worked out just fine.
+Unfortunately, it was not all as easy as this. Before I tried 'e' I tried both '.' and space as well as 'E'. Also, I conveniently tried 0x16 after 0x90 every time. This resulted in some extra runs. Also, I incorrectly assumed that because 0x16 and 0x17 were only one bit off that they were adjacent letters - most likely 'h' and 'i' or 'm' and 'n' since they are quite common. That was a dumb waste of time. Once I started focusing on 'e' it all worked out just fine.
 
 ###Conclusion
+This lab was a lot of fun. I am one step closer to becoming an assembly ninja, as I now know how to employ subroutines. Also, it was nice to jump back in to some decryption techniques.
 
 
 ###Documentation
